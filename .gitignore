@@ -1,4 +1,3 @@
-
-.User App/firebase_config
-.Admin Dashboard/config/*
-
+.index.html
+./Admin Dashboard/config/*
+./User App/firebase_config.js
