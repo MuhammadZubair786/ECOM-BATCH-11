@@ -1,6 +1,6 @@
 import { firebaseConfig } from './config/firebase_config.js'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getFirestore, collection, where, getDocs, query,doc,setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getFirestore, collection, where, getDocs, query, doc, setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -10,6 +10,9 @@ let pname = document.getElementById("pname")
 let pprice = document.getElementById("pprice")
 let pdescription = document.getElementById("pdescription")
 let ppicture = document.getElementById("ppicture")
+
+//product List table
+let productsList = document.getElementById("products")
 
 // ppicture.addEventListener("change",function(){})
 
@@ -37,8 +40,8 @@ function ShowERROR(message) {
 
 
 async function addNewProduct() {
-    console.log(ppicture.files.length==0)
-   
+    console.log(ppicture.files.length == 0)
+
     let CatValue = category.options[category.selectedIndex].innerText
     let CatKey = category.value
 
@@ -60,32 +63,71 @@ async function addNewProduct() {
         ShowERROR("Enter Product description")
 
     }
-    else if(ppicture.files.length==0){
+    else if (ppicture.files.length == 0) {
         ShowERROR("Please select product picture")
     }
-    else{
-        let pimageurl  =await imageUpload(ppicture.files[0])
+    else {
+        let pimageurl = await imageUpload(ppicture.files[0])
         console.log(pimageurl)
 
-        let pobject ={
-            productName : pname.value,
-            productPrice :pprice.value,
-            productDescription :pdescription.value,
-            productCategory : CatValue,
-            productCategoryKey : CatKey,
-            productImageUrl : pimageurl
+        let pobject = {
+            productName: pname.value,
+            productPrice: pprice.value,
+            productDescription: pdescription.value,
+            productCategory: CatValue,
+            productCategoryKey: CatKey,
+            productImageUrl: pimageurl
 
         }
         console.log(pobject)
-        var productRef = doc(collection(db,"Products"))
-        await setDoc(productRef,pobject)
+        var productRef = doc(collection(db, "Products"))
+        await setDoc(productRef, pobject)
         ShowERROR("aDD nEW PROFDUCT")
     }
-  
+
 
 }
 
 window.addNewProduct = addNewProduct
+
+
+async function getAllProduct() {
+    const productRef = collection(db, "Products")
+    const data = await getDocs(productRef)
+    console.log(data.docs)
+    productsList.innerHTML = `
+     <tr>
+                    <th>S.No</th>
+                    <th>product Name</th>
+                    <th>Category</th>
+                    <th>price</th>
+                    <th>Image</th>
+                </tr>
+    `
+let i=0;
+    for (var value of data.docs) {
+        i+=1;
+        console.log(value.data())
+        productsList.innerHTML += `
+          <tr>
+                    <th>${i}</th>
+                    <th>${value.data()["productName"]}</th>
+                    <th>${value.data()["productCategory"]}</th>
+                    <th>${value.data()["productPrice"]}</th>
+                    <th>
+                    <img class='profile'  src=${value.data()["productImageUrl"]} />
+                   </th>
+
+                </tr>
+        `
+    }
+
+
+
+
+}
+
+getAllProduct()
 
 
 async function imageUpload(image) {
