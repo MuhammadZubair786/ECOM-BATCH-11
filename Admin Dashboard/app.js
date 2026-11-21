@@ -8,6 +8,7 @@ const db = getFirestore(app)
 
 let users = document.getElementById("users")
 let Category = document.getElementById("Category")
+let product = document.getElementById("product")
 
 
 async function getAllStats() {
@@ -32,6 +33,16 @@ async function getAllStatsCategory() {
 
 }
 
+async function getAllStatsProducts() {
+    const ProductsRef = collection(db, "Products")
+    const data = await getDocs(ProductsRef)
+    console.log(data.docs)
+    product.innerText=data.docs.length>10  ? "10+":data .docs.length
+   
+
+}
+
 getAllStats()
 getAllStatsCategory()
+getAllStatsProducts()
 

@@ -1,6 +1,6 @@
 import { firebaseConfig } from './config/firebase_config.js'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getFirestore, collection, where, getDocs, query, doc, setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getFirestore, serverTimestamp,collection,orderBy, where, getDocs, query, doc, setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -76,7 +76,8 @@ async function addNewProduct() {
             productDescription: pdescription.value,
             productCategory: CatValue,
             productCategoryKey: CatKey,
-            productImageUrl: pimageurl
+            productImageUrl: pimageurl,
+            createdAt: serverTimestamp()
 
         }
         console.log(pobject)
@@ -99,8 +100,16 @@ window.addNewProduct = addNewProduct
 
 
 async function getAllProduct() {
-    const productRef = collection(db, "Products")
-    const data = await getDocs(productRef)
+    // const productRef = collection(db, "Products")
+    // const data = await getDocs(productRef)
+
+    const q = query(
+      collection(db, "Products"), // Replace "products" with your collection name
+      orderBy("createdAt", "asc") // "asc" is ascending (oldest to newest)
+    );
+
+    // 2. Execute the query
+    const data = await getDocs(q);
     console.log(data.docs)
     productsList.innerHTML = `
      <tr>
