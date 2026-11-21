@@ -82,6 +82,13 @@ async function addNewProduct() {
         console.log(pobject)
         var productRef = doc(collection(db, "Products"))
         await setDoc(productRef, pobject)
+
+        let modalElement = document.getElementById("productModal")
+        let modal = bootstrap.Modal.getInstance(modalElement)
+        modal.hide()
+
+        getAllProduct()
+        
         ShowERROR("aDD nEW PROFDUCT")
     }
 
