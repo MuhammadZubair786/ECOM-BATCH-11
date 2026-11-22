@@ -1,7 +1,7 @@
 import { firebaseConfig } from './firebase_config.js'
-import { getAuth, onAuthStateChanged ,signOut} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
+import { getFirestore, doc, getDoc,getDocs,collection } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 
 
 const app = initializeApp(firebaseConfig)
@@ -10,6 +10,7 @@ const db = getFirestore(app)
 
 let name = document.getElementById("name")
 let image = document.getElementById("image")
+let category = document.getElementById("category")
 
 
 
@@ -19,23 +20,37 @@ async function getCurrentUser() {
         const userRef = doc(db, "users", user.uid);
         const data = await getDoc(userRef)
         console.log(data.data())
-        if(data.exists()){
-            name.innerText=`Welcome ${data.data()["name"]}`
-            image.src=data.data()["imageUrl"]
+        if (data.exists()) {
+            name.innerText = `Welcome ${data.data()["name"]}`
+            image.src = data.data()["imageUrl"]
         }
     })
 
 }
 
-function logOut(){
+function logOut() {
     signOut(auth)
     localStorage.clear()
     location.replace("login.html")
 }
 
-window.logOut=logOut
+window.logOut = logOut
+
+async function getAlLCategory() {
+    const CategoryRef = collection(db, "Category");
+    const data = await getDocs(CategoryRef)
+    console.log(data.docs)
+    for(var i=0;i<data.docs.length;i++){
+        console.log(data.docs[i].data())
+        category.innerHTML+=`
+        <button>${data.docs[i].data()["categoryName"]}</button>
+        `
+    }
+
+}
 
 getCurrentUser()
+getAlLCategory()
 
 console.log(app)
 
