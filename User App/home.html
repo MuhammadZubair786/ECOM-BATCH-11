@@ -4,13 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .mainDiv{
+            display: flex;
+        }
+        .one{
+            width: 49%;
+            display: inline-block;
+        }
+        .two{
+            width: 49%;
+            display: inline-block;
+            text-align: right;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome User :</h1>
+  
+    <div class="mainDiv">
+        <div class="one">
+             <h1 id="name">Welcome User :</h1>
+
+        </div>
+        <div class="two">
+            <img src="" alt="" id="image">
+
+        </div>
+
+    </div>
     
     
 
-    <script src="app.js"></script>
+    <script type="module" src="home.js"></script>
 
 
 </body>
