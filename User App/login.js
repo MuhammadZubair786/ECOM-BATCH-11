@@ -50,6 +50,10 @@ signin.addEventListener("click", async function () {
                  const q = query(dbRef, where("email", "==",email.value ));
                 const querySnapshot = await getDocs(q);
                 console.log(querySnapshot.docs[0].data())
+                localStorage.setItem("userLogin",true)
+                localStorage.setItem("userId",user.user.uid)
+                location.replace("home.html")
+
 
 
             }
@@ -61,3 +65,13 @@ signin.addEventListener("click", async function () {
 
 
 })
+
+
+function checkLoginStatus(){
+    var userLoginStatus = localStorage.getItem("userLogin")
+    if(userLoginStatus=="true"){
+        window.location.replace("home.html")
+
+    }
+}
+checkLoginStatus()

@@ -74,9 +74,19 @@ signup.addEventListener("click", async function () {
       })
       .catch((e) => {
          console.log(e)
+         alert(e)
       })
 })
 
+
+function checkLoginStatus(){
+    var userLoginStatus = localStorage.getItem("userLogin")
+    if(userLoginStatus=="true"){
+        window.location.replace("home.html")
+
+    }
+}
+checkLoginStatus()
 
 
 

@@ -1,6 +1,6 @@
 import { firebaseConfig } from './config/firebase_config.js'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getFirestore, serverTimestamp,collection,orderBy, where, getDocs, query, doc, setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+import { getFirestore, serverTimestamp, collection, orderBy, where, getDocs, query, doc, setDoc } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -89,7 +89,7 @@ async function addNewProduct() {
         modal.hide()
 
         getAllProduct()
-        
+
         ShowERROR("aDD nEW PROFDUCT")
     }
 
@@ -104,8 +104,8 @@ async function getAllProduct() {
     // const data = await getDocs(productRef)
 
     const q = query(
-      collection(db, "Products"), // Replace "products" with your collection name
-      orderBy("createdAt", "asc") // "asc" is ascending (oldest to newest)
+        collection(db, "Products"), // Replace "products" with your collection name
+        orderBy("createdAt", "asc") // "asc" is ascending (oldest to newest)
     );
 
     // 2. Execute the query
@@ -120,9 +120,9 @@ async function getAllProduct() {
                     <th>Image</th>
                 </tr>
     `
-let i=0;
+    let i = 0;
     for (var value of data.docs) {
-        i+=1;
+        i += 1;
         console.log(value.data())
         productsList.innerHTML += `
           <tr>
