@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
     <style>
-        .mainDiv{
+        .mainDiv {
             display: flex;
         }
-        .one{
+
+        .one {
             width: 49%;
             display: inline-block;
         }
-        .two{
+
+        .two {
             width: 49%;
             display: inline-block;
             text-align: right;
         }
-        img{
+
+        img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
         }
     </style>
 </head>
+
 <body>
-  
+
     <div class="mainDiv">
         <div class="one">
-             <h1 id="name">Loading...</h1>
+            <h1 id="name">Loading...</h1>
 
         </div>
         <div class="two">
+            <a href="#" role="button" data-bs-toggle="dropdown" data-bs-offset="0,40" aria-expanded="false">
             <img src="" alt="" id="image">
+            </a>
+
+            <ul class="dropdown-menu" style="margin-top: 150px;">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" onclick="logOut()">Logout</a></li>
+            </ul>
 
         </div>
 
     </div>
-    
-    
 
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script type="module" src="home.js"></script>
 
 
 </body>
+
 </html>

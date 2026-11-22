@@ -1,5 +1,5 @@
 import { firebaseConfig } from './firebase_config.js'
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged ,signOut} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 
@@ -22,15 +22,18 @@ async function getCurrentUser() {
         if(data.exists()){
             name.innerText=`Welcome ${data.data()["name"]}`
             image.src=data.data()["imageUrl"]
-
         }
-
-
-
-
     })
 
 }
+
+function logOut(){
+    signOut(auth)
+    localStorage.clear()
+    location.replace("login.html")
+}
+
+window.logOut=logOut
 
 getCurrentUser()
 
