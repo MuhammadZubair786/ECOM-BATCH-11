@@ -42,9 +42,10 @@ async function getAlLCategory() {
     console.log(data.docs)
     for (var i = 0; i < data.docs.length; i++) {
         let cName = data.docs[i].data()["categoryName"];
+        let ckey = data.docs[i].data()["categoryKey"];
         console.log(data.docs[i].data())
         category.innerHTML += `
-        <button onclick ='reDirectUrl("${cName}")'>
+        <button onclick ='reDirectUrl("${cName}","${ckey}")'>
         ${data.docs[i].data()["categoryName"]}</button>
         `
     }
