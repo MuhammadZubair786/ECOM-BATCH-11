@@ -1,7 +1,7 @@
 import { firebaseConfig } from './firebase_config.js'
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-import { getFirestore, doc, getDoc,getDocs,collection } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
+import { getFirestore, doc, getDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 
 
 const app = initializeApp(firebaseConfig)
@@ -40,15 +40,23 @@ async function getAlLCategory() {
     const CategoryRef = collection(db, "Category");
     const data = await getDocs(CategoryRef)
     console.log(data.docs)
-    for(var i=0;i<data.docs.length;i++){
+    for (var i = 0; i < data.docs.length; i++) {
+        let cName = data.docs[i].data()["categoryName"];
         console.log(data.docs[i].data())
-        category.innerHTML+=`
-        <button>${data.docs[i].data()["categoryName"]}</button>
+        category.innerHTML += `
+        <button onclick ='reDirectUrl("${cName}")'>
+        ${data.docs[i].data()["categoryName"]}</button>
         `
     }
 
 }
 
+function reDirectUrl(categoryName) {
+    console.log(categoryName)
+    window.location.href=`./Product.html?categoryName=${categoryName}`
+
+}
+window.reDirectUrl=reDirectUrl
 getCurrentUser()
 getAlLCategory()
 
